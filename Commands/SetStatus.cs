@@ -3,7 +3,7 @@ using Coolector.Common.Commands;
 
 namespace servicedesk.Common.Commands
 {
-    public class SetStatus
+    public class SetStatus : ICommand
     {
         public Request Request { get; set; }
         public Guid SourceId { get; set; }
