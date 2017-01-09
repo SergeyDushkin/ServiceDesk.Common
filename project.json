@@ -7,7 +7,9 @@
     "projectUrl": "https://github.com/SergeyDushkin/ServiceDesk.Common",
     "packageType": "DotnetCliTool"
   },
-  "dependencies": {},
+  "dependencies": {
+    "NETStandard.Library": "1.6.1"
+  },
   "frameworks": {
     "netstandard1.6": {}
   }
