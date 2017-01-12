@@ -2,7 +2,7 @@
   "name": "ServiceDesk.Common",
   "title": "ServiceDesk.Common",
   "authors": ["SergeyDushkin"],
-  "version": "1.0.1",
+  "version": "1.0.2",
   "packOptions": {
     "projectUrl": "https://github.com/SergeyDushkin/ServiceDesk.Common",
     "packageType": "DotnetCliTool"

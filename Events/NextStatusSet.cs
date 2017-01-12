@@ -1,7 +1,7 @@
 using System;
 using Coolector.Common.Events;
 
-namespace servicedesk.StatusManagementSystem.Events
+namespace servicedesk.Common.Events
 {
     public class NextStatusSet : IEvent
     {
