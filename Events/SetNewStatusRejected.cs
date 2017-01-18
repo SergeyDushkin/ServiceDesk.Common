@@ -1,8 +1,12 @@
 using System;
 using Coolector.Common.Events;
+using RawRabbit.Attributes;
+using RawRabbit.Configuration.Exchange;
 
 namespace servicedesk.Common.Events
 {
+    [Queue(Name = "nextstatusset", MessageTtl = 300, DeadLeterExchange = "dlx", Durable = false)]
+    [Exchange(Name = "servicedesk.statusmanagementsystem.events", Type = ExchangeType.Topic)] 
     public class SetNewStatusRejected : IRejectedEvent
     {
         public Guid RequestId { get; }
