@@ -2,7 +2,7 @@
   "name": "ServiceDesk.Common",
   "title": "ServiceDesk.Common",
   "authors": ["SergeyDushkin"],
-  "version": "1.0.4",
+  "version": "1.0.5",
   "packOptions": {
     "projectUrl": "https://github.com/SergeyDushkin/ServiceDesk.Common",
     "packageType": "DotnetCliTool"
@@ -10,6 +10,7 @@
   "dependencies": {
     "Coolector.Common": "1.0.*",
     "NETStandard.Library": "1.6.1",
+    "Autofac": "4.1.0",
     "RawRabbit.Attributes": "1.10.*"
   },
   "frameworks": {
