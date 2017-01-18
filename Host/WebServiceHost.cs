@@ -67,11 +67,11 @@ namespace servicedesk.Common.Host
                 return this;
             }
 
-            public BusBuilder UseRabbitMq(string exchangeName = null)
+            public BusBuilder UseRabbitMq()
             {
                 _bus = _resolver.Resolve<IModel>();
 
-                return new BusBuilder(_webHost, _bus, _resolver, exchangeName);
+                return new BusBuilder(_webHost, _bus, _resolver);
             }
 
             public override WebServiceHost Build()
@@ -85,22 +85,20 @@ namespace servicedesk.Common.Host
             private readonly IWebHost _webHost;
             private readonly IModel _bus;
             private readonly IResolver _resolver;
-            private readonly string _exchangeName;
 
-            public BusBuilder(IWebHost webHost, IModel bus, IResolver resolver, string exchangeName = null)
+            public BusBuilder(IWebHost webHost, IModel bus, IResolver resolver)
             {
                 _webHost = webHost;
                 _bus = bus;
                 _resolver = resolver;
-                _exchangeName = exchangeName;
-                
-                _bus.ExchangeDeclare(exchange: _exchangeName, type: "topic");
             }
 
-            public BusBuilder SubscribeToCommand<TCommand>(string queueName) where TCommand : ICommand
+            public BusBuilder SubscribeToCommand<TCommand>(string exchangeName = null, string queueName = null) where TCommand : ICommand
             {
+                _bus.ExchangeDeclare(exchange: exchangeName, type: "topic", durable: true);
+
                 var queue = _bus.QueueDeclare(queueName);
-                _bus.QueueBind(queue: queueName, exchange: _exchangeName, routingKey: "");
+                _bus.QueueBind(queue: queueName, exchange: exchangeName, routingKey: "");
 
                 var consumer = new EventingBasicConsumer(_bus);
                 consumer.Received += (model, ea) =>
@@ -119,10 +117,12 @@ namespace servicedesk.Common.Host
                 return this;
             }
 
-            public BusBuilder SubscribeToEvent<TEvent>(string queueName) where TEvent : IEvent
-            {                
+            public BusBuilder SubscribeToEvent<TEvent>(string exchangeName = null, string queueName = null) where TEvent : IEvent
+            {         
+                _bus.ExchangeDeclare(exchange: exchangeName, type: "topic", durable: true);
+
                 var queue = _bus.QueueDeclare(queueName);
-                _bus.QueueBind(queue: queueName, exchange: "logs", routingKey: "");
+                _bus.QueueBind(queue: queueName, exchange: exchangeName, routingKey: "");
 
                 var consumer = new EventingBasicConsumer(_bus);
                 consumer.Received += (model, ea) =>
