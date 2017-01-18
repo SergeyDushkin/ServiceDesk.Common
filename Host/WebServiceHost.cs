@@ -94,18 +94,18 @@ namespace servicedesk.Common.Host
                 _queueName = queueName;
             }
 
-            public BusBuilder SubscribeToCommand<TCommand>() where TCommand : ICommand
+            public BusBuilder SubscribeToCommand<TCommand>(string queueName) where TCommand : ICommand
             {
                 var commandHandler = _resolver.Resolve<ICommandHandler<TCommand>>();
-                _bus.WithCommandHandlerAsync(commandHandler, _queueName);
+                _bus.WithCommandHandlerAsync(commandHandler, queueName);
 
                 return this;
             }
 
-            public BusBuilder SubscribeToEvent<TEvent>() where TEvent : IEvent
+            public BusBuilder SubscribeToEvent<TEvent>(string queueName) where TEvent : IEvent
             {
                 var eventHandler = _resolver.Resolve<IEventHandler<TEvent>>();
-                _bus.WithEventHandlerAsync(eventHandler, _queueName);
+                _bus.WithEventHandlerAsync(eventHandler, queueName);
 
                 return this;
             }
