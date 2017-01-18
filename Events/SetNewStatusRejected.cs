@@ -5,7 +5,7 @@ using RawRabbit.Configuration.Exchange;
 
 namespace servicedesk.Common.Events
 {
-    [Queue(Name = "nextstatusset", MessageTtl = 300, DeadLeterExchange = "dlx", Durable = false)]
+    [Queue(Name = "setnewstatusrejected", MessageTtl = 300, DeadLeterExchange = "dlx", Durable = false)]
     [Exchange(Name = "servicedesk.statusmanagementsystem.events", Type = ExchangeType.Topic)] 
     public class SetNewStatusRejected : IRejectedEvent
     {
