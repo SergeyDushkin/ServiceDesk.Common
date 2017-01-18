@@ -1,5 +1,4 @@
 using System;
-using Coolector.Common.Events;
 using RawRabbit.Attributes;
 using RawRabbit.Configuration.Exchange;
 

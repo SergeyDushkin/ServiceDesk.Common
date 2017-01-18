@@ -1,8 +1,8 @@
 using System.Reflection;
-using Coolector.Common.Commands;
-using Coolector.Common.Events;
 using RawRabbit;
 using RawRabbit.Common;
+using servicedesk.Common.Commands;
+using servicedesk.Common.Events;
 
 namespace servicedesk.Common.Extensions
 {

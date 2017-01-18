@@ -2,10 +2,10 @@ using System;
 using System.IO;
 using System.Linq;
 using Autofac;
-using Coolector.Common.Commands;
-using Coolector.Common.Events;
 using Microsoft.AspNetCore.Hosting;
 using RawRabbit;
+using servicedesk.Common.Commands;
+using servicedesk.Common.Events;
 using servicedesk.Common.Extensions;
 
 namespace servicedesk.Common.Host
