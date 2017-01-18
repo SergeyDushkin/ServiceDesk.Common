@@ -67,11 +67,11 @@ namespace servicedesk.Common.Host
                 return this;
             }
 
-            public BusBuilder UseRabbitMq(string queueName = null)
+            public BusBuilder UseRabbitMq(string exchangeName = null)
             {
                 _bus = _resolver.Resolve<IModel>();
 
-                return new BusBuilder(_webHost, _bus, _resolver, queueName);
+                return new BusBuilder(_webHost, _bus, _resolver, exchangeName);
             }
 
             public override WebServiceHost Build()
@@ -85,22 +85,22 @@ namespace servicedesk.Common.Host
             private readonly IWebHost _webHost;
             private readonly IModel _bus;
             private readonly IResolver _resolver;
-            private readonly string _queueName;
+            private readonly string _exchangeName;
 
-            public BusBuilder(IWebHost webHost, IModel bus, IResolver resolver, string queueName = null)
+            public BusBuilder(IWebHost webHost, IModel bus, IResolver resolver, string exchangeName = null)
             {
                 _webHost = webHost;
                 _bus = bus;
                 _resolver = resolver;
-                _queueName = queueName;
+                _exchangeName = exchangeName;
                 
-                _bus.ExchangeDeclare(exchange: "logs", type: "topic");
+                _bus.ExchangeDeclare(exchange: _exchangeName, type: "topic");
             }
 
             public BusBuilder SubscribeToCommand<TCommand>(string queueName) where TCommand : ICommand
             {
                 var queue = _bus.QueueDeclare(queueName);
-                _bus.QueueBind(queue: queueName, exchange: "logs", routingKey: "");
+                _bus.QueueBind(queue: queueName, exchange: _exchangeName, routingKey: "");
 
                 var consumer = new EventingBasicConsumer(_bus);
                 consumer.Received += (model, ea) =>
