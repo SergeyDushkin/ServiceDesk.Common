@@ -2,7 +2,7 @@
   "name": "ServiceDesk.Common",
   "title": "ServiceDesk.Common",
   "authors": ["SergeyDushkin"],
-  "version": "1.0.7",
+  "version": "1.0.8",
   "packOptions": {
     "projectUrl": "https://github.com/SergeyDushkin/ServiceDesk.Common",
     "packageType": "DotnetCliTool"
@@ -13,7 +13,8 @@
     "RawRabbit.Attributes": "1.10.*",
     "Humanizer.Core": "2.1.0",
     "Microsoft.AspNetCore.Hosting": "1.1.0",
-    "Microsoft.AspNetCore.Server.Kestrel": "1.1.0"
+    "Microsoft.AspNetCore.Server.Kestrel": "1.1.0",
+    "NLog.Extensions.Logging": "1.0.0-*"
   },
   "frameworks": {
     "netstandard1.6": {}
