@@ -2,14 +2,14 @@
   "name": "ServiceDesk.Common",
   "title": "ServiceDesk.Common",
   "authors": ["SergeyDushkin"],
-  "version": "1.0.14",
+  "version": "1.0.15",
   "packOptions": {
     "projectUrl": "https://github.com/SergeyDushkin/ServiceDesk.Common",
     "packageType": "DotnetCliTool"
   },
   "dependencies": {
     "NETStandard.Library": "1.6.1",
-    "Autofac": "4.1.0",
+    "Autofac": "4.3.0",
     "Humanizer.Core": "2.1.0",
     "Microsoft.AspNetCore.Hosting": "1.1.0",
     "Microsoft.AspNetCore.Server.Kestrel": "1.1.0",
