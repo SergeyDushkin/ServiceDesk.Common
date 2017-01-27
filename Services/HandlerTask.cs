@@ -13,7 +13,9 @@ namespace servicedesk.Common.Services
         private Action _always;
         private Func<Task> _alwaysAsync;
         private Action _onSuccess;
+        private Action<Logger> _onSuccessWithLogger;
         private Func<Task> _onSuccessAsync;
+        private Func<Logger, Task> _onSuccessWithLoggerAsync;
         private Action<Exception> _onError;
         private Action<Exception, Logger> _onErrorWithLogger;
         private Func<Exception, Task> _onErrorAsync;
@@ -79,6 +81,12 @@ namespace servicedesk.Common.Services
             return this;
         }
 
+        public IHandlerTask OnSuccess(Action<Logger> onSuccess)
+        {
+            _onSuccessWithLogger = onSuccess;
+
+            return this;
+        }
         public IHandlerTask OnSuccess(Action onSuccess)
         {
             _onSuccess = onSuccess;
@@ -89,6 +97,12 @@ namespace servicedesk.Common.Services
         public IHandlerTask OnSuccess(Func<Task> onSuccess)
         {
             _onSuccessAsync = onSuccess;
+
+            return this;
+        }
+        public IHandlerTask OnSuccess(Func<Logger, Task> onSuccess)
+        {
+            _onSuccessWithLoggerAsync = onSuccess;
 
             return this;
         }
@@ -114,6 +128,7 @@ namespace servicedesk.Common.Services
             try
             {
                 _run();
+                _onSuccessWithLogger?.Invoke(Logger);
                 _onSuccess?.Invoke();
             }
             catch (Exception exception)
@@ -143,6 +158,11 @@ namespace servicedesk.Common.Services
                 if(_onSuccessAsync != null)
                 {
                     await _onSuccessAsync();
+                }
+
+                if(_onSuccessWithLoggerAsync != null)
+                {
+                    await _onSuccessWithLoggerAsync(Logger);
                 }
             }
             catch (Exception exception)

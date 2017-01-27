@@ -13,7 +13,9 @@ namespace servicedesk.Common.Services
         IHandlerTask OnError(Func<Exception, Task> onError, bool propagateException = false);
         IHandlerTask OnError(Func<Exception, Logger, Task> onError, bool propagateException = false);
         IHandlerTask OnSuccess(Action onSuccess);
+        IHandlerTask OnSuccess(Action<Logger> onSuccess);
         IHandlerTask OnSuccess(Func<Task> onSuccess);
+        IHandlerTask OnSuccess(Func<Logger, Task> onSuccess);
         IHandlerTask PropagateException();
         IHandlerTask DoNotPropagateException();
         IHandler Next();
