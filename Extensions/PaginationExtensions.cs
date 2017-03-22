@@ -1,13 +1,66 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http.Headers;
-using System.Text.RegularExpressions;
 using servicedesk.Common.Queries;
 using servicedesk.Common.Types;
-/*
+
 namespace servicedesk.Common.Extensions
 {
+    public static class PaginationExtensions
+    {
+        public static PagedResult<T> PaginateWithoutLimit<T>(this IEnumerable<T> values)
+            => values.Paginate(1, int.MaxValue);
+
+        public static PagedResult<T> Paginate<T>(this IEnumerable<T> values, int page = 1, int resultsPerPage = 10)
+            => values.Paginate(page,resultsPerPage);
+
+        public static PagedResult<T> Paginate<T>(this IQueryable<T> values, IPagedQuery query)
+            => values.Paginate(query.Page, query.Results);
+
+        public static PagedResult<T> Paginate<T>(this IQueryable<T> values,
+            int page = 1, int resultsPerPage = 10)
+        {
+            if (page <= 0)
+                page = 1;
+
+            if (resultsPerPage <= 0)
+                resultsPerPage = 10;
+
+            var isEmpty = values.Any() == false;
+            if (isEmpty)
+                return PagedResult<T>.Empty;
+
+            var totalResults = values.Count();
+            var totalPages = (int) Math.Ceiling((decimal) totalResults/resultsPerPage);
+            var data = values.Limit(page, resultsPerPage).ToList();
+
+            return PagedResult<T>.Create(data, page, resultsPerPage, totalPages, totalResults);
+        }
+
+        public static IQueryable<T> Limit<T>(this IQueryable<T> collection, IPagedQuery query)
+            => collection.Limit(query.Page, query.Results);
+
+        public static IQueryable<T> Limit<T>(this IQueryable<T> collection,
+            int page = 1, int resultsPerPage = 10)
+        {
+            if (page <= 0)
+                page = 1;
+
+            if (resultsPerPage <= 0)
+                resultsPerPage = 10;
+
+            var skip = (page - 1)*resultsPerPage;
+            var data = collection.Skip(skip)
+                .Take(resultsPerPage);
+
+            return data;
+        }
+    }
+}
+
+
+
+    /* 
     public static class PaginationExtensions
     {
         public static PagedResult<T> PaginateWithoutLimit<T>(this IEnumerable<T> values)
@@ -110,5 +163,4 @@ namespace servicedesk.Common.Extensions
 
             return param;
         }
-    }
-}*/
+    }*/
