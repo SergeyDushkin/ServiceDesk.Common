@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using servicedesk.Common.Queries;
 using servicedesk.Common.Types;
@@ -8,12 +7,6 @@ namespace servicedesk.Common.Extensions
 {
     public static class PaginationExtensions
     {
-        public static PagedResult<T> PaginateWithoutLimit<T>(this IEnumerable<T> values)
-            => values.Paginate(1, int.MaxValue);
-
-        public static PagedResult<T> Paginate<T>(this IEnumerable<T> values, int page = 1, int resultsPerPage = 10)
-            => values.Paginate(page,resultsPerPage);
-
         public static PagedResult<T> Paginate<T>(this IQueryable<T> values, IPagedQuery query)
             => values.Paginate(query.Page, query.Results);
 
