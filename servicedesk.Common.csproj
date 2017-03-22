@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <AssemblyTitle>ServiceDesk.Common</AssemblyTitle>
+    <VersionPrefix>1.0.23</VersionPrefix>
+    <Authors>SergeyDushkin</Authors>
+    <TargetFramework>netstandard1.6</TargetFramework>
+    <AssemblyName>ServiceDesk.Common</AssemblyName>
+    <PackageId>servicedesk.Common</PackageId>
+    <PackageProjectUrl>https://github.com/SergeyDushkin/ServiceDesk.Common</PackageProjectUrl>
+    <NetStandardImplicitPackageVersion>1.6.1</NetStandardImplicitPackageVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Autofac" Version="4.3.0" />
+    <PackageReference Include="Humanizer.Core" Version="2.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="1.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Server.Kestrel" Version="1.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="1.1.1" />
+    <PackageReference Include="NLog.Extensions.Logging" Version="1.0.0-*" />
+    <PackageReference Include="RabbitMQ.Client" Version="4.1.1" />
+    <PackageReference Include="RawRabbit" Version="1.10.3" />
+    <PackageReference Include="RawRabbit.Extensions" Version="1.10.3" />
+    <PackageReference Include="RawRabbit.Attributes" Version="1.10.3" />
+    <PackageReference Include="RawRabbit.vNext" Version="1.10.3" />
+  </ItemGroup>
+
+</Project>

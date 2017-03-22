@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using servicedesk.Common.Domain;
@@ -39,5 +40,11 @@ namespace servicedesk.Common.Services
 
         public Task<T> GetByIdAsync<T>(Guid id) where T : class, IIdentifiable, new() => repository.GetSingleAsync<T>(id);
         public Task<T> GetByIdAsync<T>(Guid id, params Expression<Func<T, object>>[] includeProperties) where T : class, IIdentifiable, new() => repository.GetSingleAsync<T>(id, includeProperties);
+
+        public Task<IEnumerable<T>> GetAsync<T>(Expression<Func<T, bool>> predicate) where T : class, IIdentifiable, new() => repository.FindByAsync<T>(predicate);
+
+        public Task<IEnumerable<T>> GetAsync<T>(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includeProperties) where T : class, IIdentifiable, new() => repository.FindByAsync<T>(predicate, includeProperties);
+
+        public IQueryable<T> Query<T>(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includeProperties) where T : class, IIdentifiable, new() => repository.Query<T>(predicate, includeProperties);
     }
 }

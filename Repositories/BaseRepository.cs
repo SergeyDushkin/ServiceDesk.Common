@@ -82,6 +82,17 @@ namespace servicedesk.Common.Repositories
 
             return await query.Where(predicate).ToListAsync();
         }
+        
+        public virtual IQueryable<T> Query<T>(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includeProperties) where T : class, IIdentifiable, new()
+        {
+            IQueryable<T> query = _context.Set<T>();
+            foreach (var includeProperty in includeProperties)
+            {
+                query = query.Include(includeProperty);
+            }
+
+            return query.Where(predicate);
+        }
 
         public virtual void Add<T>(T entity) where T : class, IIdentifiable, new()
         {

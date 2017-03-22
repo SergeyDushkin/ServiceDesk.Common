@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using servicedesk.Common.Domain;
@@ -8,6 +9,7 @@ namespace servicedesk.Common.Repositories
 {
     public interface IBaseRepository
     {
+        IQueryable<T> Query<T>(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includeProperties) where T : class, IIdentifiable, new();
         Task<IEnumerable<T>> AllIncludingAsync<T>(params Expression<Func<T, object>>[] includeProperties) where T : class, IIdentifiable, new();
         Task<IEnumerable<T>> GetAllAsync<T>() where T : class, IIdentifiable, new();
         int Count<T>() where T : class, IIdentifiable, new();
