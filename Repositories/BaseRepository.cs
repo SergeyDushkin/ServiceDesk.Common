@@ -19,16 +19,16 @@ namespace servicedesk.Common.Repositories
 
         public virtual async Task<IEnumerable<T>> GetAllAsync<T>() where T : class, IIdentifiable, new()
         {
-            return await _context.Set<T>().ToListAsync();
+            return await _context.Set<T>().AsNoTracking().ToListAsync();
         }
 
         public virtual int Count<T>() where T : class, IIdentifiable, new()
         {
-            return _context.Set<T>().Count();
+            return _context.Set<T>().AsNoTracking().Count();
         }
         public virtual async Task<IEnumerable<T>> AllIncludingAsync<T>(params Expression<Func<T, object>>[] includeProperties) where T : class, IIdentifiable, new()
         {
-            IQueryable<T> query = _context.Set<T>();
+            IQueryable<T> query = _context.Set<T>().AsNoTracking();
             foreach (var includeProperty in includeProperties)
             {
                 query = query.Include(includeProperty);
@@ -38,16 +38,16 @@ namespace servicedesk.Common.Repositories
 
         public Task<T> GetSingleAsync<T>(Guid id) where T : class, IIdentifiable, new()
         {
-            return _context.Set<T>().FirstOrDefaultAsync(x => x.Id == id);
+            return _context.Set<T>().AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public Task<T> GetSingleAsync<T>(Expression<Func<T, bool>> predicate) where T : class, IIdentifiable, new()
         {
-            return _context.Set<T>().FirstOrDefaultAsync(predicate);
+            return _context.Set<T>().AsNoTracking().FirstOrDefaultAsync(predicate);
         }
         public Task<T> GetSingleAsync<T>(Guid id, params Expression<Func<T, object>>[] includeProperties) where T : class, IIdentifiable, new()
         {
-            IQueryable<T> query = _context.Set<T>();
+            IQueryable<T> query = _context.Set<T>().AsNoTracking();
             foreach (var includeProperty in includeProperties)
             {
                 query = query.Include(includeProperty);
@@ -58,7 +58,7 @@ namespace servicedesk.Common.Repositories
 
         public Task<T> GetSingleAsync<T>(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includeProperties) where T : class, IIdentifiable, new()
         {
-            IQueryable<T> query = _context.Set<T>();
+            IQueryable<T> query = _context.Set<T>().AsNoTracking();
             foreach (var includeProperty in includeProperties)
             {
                 query = query.Include(includeProperty);
@@ -69,12 +69,12 @@ namespace servicedesk.Common.Repositories
 
         public virtual async Task<IEnumerable<T>> FindByAsync<T>(Expression<Func<T, bool>> predicate) where T : class, IIdentifiable, new()
         {
-            return await _context.Set<T>().Where(predicate).ToListAsync();
+            return await _context.Set<T>().AsNoTracking().Where(predicate).ToListAsync();
         }
 
         public virtual async Task<IEnumerable<T>> FindByAsync<T>(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includeProperties) where T : class, IIdentifiable, new()
         {
-            IQueryable<T> query = _context.Set<T>();
+            IQueryable<T> query = _context.Set<T>().AsNoTracking();
             foreach (var includeProperty in includeProperties)
             {
                 query = query.Include(includeProperty);
@@ -85,7 +85,7 @@ namespace servicedesk.Common.Repositories
         
         public virtual IQueryable<T> Query<T>(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includeProperties) where T : class, IIdentifiable, new()
         {
-            IQueryable<T> query = _context.Set<T>();
+            IQueryable<T> query = _context.Set<T>().AsNoTracking();
             foreach (var includeProperty in includeProperties)
             {
                 query = query.Include(includeProperty);
